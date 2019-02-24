@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "View";
+}
+@model  FileInfo[]
+
+<div class="text-center">
+    <h1 class="display-4">View Files</h1>
+    <p>You can see all the files available in the volume</p>
+
+    @if (Model.Length > 0)
+    {
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">File Name</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Last Access</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int i = 1;}
+                @foreach (var file in Model)
+                {
+                    <tr>
+                        <th scope="row">@i</th>
+                        <td>@file.Name</td>
+                        <td>@file.CreationTime.ToString("dddd, dd MMMM yyyy HH:mm:ss")</td>
+                        <td>@file.LastAccessTime.ToString("dddd, dd MMMM yyyy HH:mm:ss")</td>
+                    </tr>
+                    i++;
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-info" role="alert">No files found.</div>
+    }
+
+</div>
+
