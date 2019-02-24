@@ -1,0 +1,46 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-vol-files-static-deployment
+  labels:
+    app: data-vol-files-static
+spec:
+  replicas: 3
+  template:
+    metadata:
+      name: data-vol-files-static
+      labels:
+        app: data-vol-files-static
+    spec:
+      containers:
+      - name: data-vol-files-static
+        image: kvkakssecurityacr.azurecr.io/aksdatavolumesdemo:v1
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - name: files
+            mountPath: /files
+      volumes:
+      - name: files
+        azureFile:
+          secretName: aks-share-secret
+          shareName: aks-file-share
+          readOnly: false
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: data-vol-files-static
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-vol-files-static-service
+spec:
+  selector:
+    app: data-vol-files-static
+  ports:
+    - port: 80
+  type: LoadBalancer
+  
+  
