@@ -1,0 +1,46 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-vol-disk-static-deployment
+  labels:
+    app: data-vol-disk-static
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: data-vol-disk-static
+      labels:
+        app: data-vol-disk-static
+    spec:
+      containers:
+      - name: data-vol-disk-static
+        image: kvkakssecurityacr.azurecr.io/aksdatavolumesdemo:v1
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - name: files
+            mountPath: /files
+      volumes:
+      - name: files
+        azureDisk:
+          kind: Managed
+          diskName: kvkakssecuritydisk01
+          diskURI: /subscriptions/3470523d-174d-4bf0-8434-dfb3a093607a/resourceGroups/MC_aks-security-rg_kvkakssecurityaks_southeastasia/providers/Microsoft.Compute/disks/kvkakssecuritydisk01
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: data-vol-disk-static
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-vol-disk-static-service
+spec:
+  selector:
+    app: data-vol-disk-static
+  ports:
+    - port: 80
+  type: LoadBalancer
+  
+  

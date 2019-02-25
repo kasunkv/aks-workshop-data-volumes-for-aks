@@ -1,0 +1,58 @@
+﻿apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: az-managed-premium-disk
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: managed-premium
+  resources:
+    requests:
+      storage: 2Gi
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-vol-disk-dynamic-deployment
+  labels:
+    app: data-vol-disk-dynamic
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: data-vol-disk-dynamic
+      labels:
+        app: data-vol-disk-dynamic
+    spec:
+      containers:
+      - name: data-vol-disk-dynamic
+        image: kvkakssecurityacr.azurecr.io/aksdatavolumesdemo:v1
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - name: files
+            mountPath: /files
+      volumes:
+      - name: files
+        persistentVolumeClaim:
+          claimName: az-managed-premium-disk
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: data-vol-disk-dynamic
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-vol-disk-dynamic-service
+spec:
+  selector:
+    app: data-vol-disk-dynamic
+  ports:
+    - port: 80
+  type: LoadBalancer
+  
+  
