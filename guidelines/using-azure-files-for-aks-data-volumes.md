@@ -1,5 +1,16 @@
 # Using Azure Files for AKS Data Volumes
 
+## Tag and Push the Docker Image to ACR
+We need to tag the downloaded/built docker image and push the newly tagged image to ACR to be used in the hands-on session. We will use the same ACR instance we created in the Security for AKS session. Use the following commands
+
+```powershell
+# Tag the docker image
+docker tag "aks-data-volumes-demo" "<your-acr-name>.azurecr.io/aks-data-volumes-demo"
+
+# Push the image to ACR
+docker push "<your-acr-name>.azurecr.io/aks-data-volumes-demo"
+```
+
 # Create Persistant Volume using Statically Provisioned Azure File Share
 In this example we will be creating a volume using Azure Files and share it across multiple pods.
 

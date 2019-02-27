@@ -25,7 +25,7 @@ The current latest version of the Azure CLI is 2.0.59 as of writing this guideli
 * [Install on Linux](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
 
 Run the following commands to verify the installation and the CLI version
-```bash
+```powershell
 # Check the Azure CLI version
 az --version
 
@@ -36,29 +36,57 @@ az login --use-device-code
 ## 3. Kubectl - Kubernetes Command-Line Client
 You need to install `kubectl` on your local machine to manage your Kubernetes cluster on AKS. It's really simple. Once you have Azure CLI installed run the following command.
 
-```bash
+```powershell
 # Install kubectl using Azure CLI
 az aks install-cli
 ```
 
 You can run the following command to connect to your AKS cluster by downloading the credentials and configuring kubectl to use them
 
-```bash
+```powershell
 # Download and merge the AKS config with your local kubernetes config
 az aks get-credentials --resource-group "<your-resource-group>" --name "<aks-cluster-name>"
 ```
 
 Once the credentials are downloaded. Run the following command to make sure you have access to the AKS cluster.
 
-```bash
+```powershell
 # You should see the available nodes in your AKS cluster
 kubectl get nodes
+```
+
+# Building the Sample Application
+The hands-on session contains a sample application that will demonstrate writing a text file in to a volume and reading the files inside the volume. You can build the Docker image locally and push it to your Azure Container Register (ACR).
+
+## 1. Build the Docker Image
+
+```powershell
+# Build the docker image
+docker build -f .\Dockerfile --tag aks-data-volumes-demo .
+```
+
+## 2. Run the Application Locally.
+Create a folder in you `C:` drive with the name `files`. **e.g.** _C:\files_
+
+### **Option 01:** Running Using Visual Studio
+You can run the application using Visual Studio. 
+
+Then you can run the application using Visual Studio and try it our.
+
+### **Option 02:** Running the Docker Container
+Use the following command to run the docker container.
+```powershell
+# Run the docker container with a volume mounted
+docker run -p 5000:80 -v "c:/files:/files" aks-data-volumes-demo
 ```
 
 
 # Optional Steps
 If you don't want to build the docker image used for the hands-on session. You can download the pre-made docker image from the Docker Hub. Use the following command to download the docker image to your local machine.
 
-```bash
-
+```powershell
+# Pull the kasunkv/aks-data-volumes-demo image from docker hub
+docker pull kasunkv/aks-data-volumes-demo
 ```
+
+After that you can tag the image for the ACR and push it to Azure
