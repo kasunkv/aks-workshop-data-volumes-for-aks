@@ -7,6 +7,9 @@ metadata:
 spec:
   replicas: 1
   serviceName: data-vol-disk-set
+  selector:
+    matchLabels:
+      app: data-vol-disk-dynamic
   template:
     metadata:
       name: data-vol-disk-dynamic-pod
@@ -29,10 +32,7 @@ spec:
       - ReadWriteOnce
       resources:
         requests:
-          storage: 2Gi
-  selector:
-    matchLabels:
-      app: data-vol-disk-dynamic
+          storage: 2Gi 
 
 ---
 
