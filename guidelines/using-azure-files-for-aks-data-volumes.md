@@ -50,7 +50,7 @@ $storageKey = az storage account keys list --account-name "<storage-account-name
 
 ## 5. Create the Kubernetes Secret to Access Azure File Share
 ```powershell
-kubectl create secret generic azure-secret --from-literal azurestorageaccountname="<storage-account-name>" --from-literal azurestorageaccountkey=$storageKey
+kubectl create secret generic aks-share-secret --from-literal azurestorageaccountname="<storage-account-name>" --from-literal azurestorageaccountkey=$storageKey
 ```
 
 ## 6. Run the Kubetnetes Deployment
