@@ -1,0 +1,50 @@
+﻿apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: data-vol-disk-dynamic-set
+  labels:
+    app: data-vol-disk-dynamic
+spec:
+  replicas: 1
+  serviceName: data-vol-disk-set
+  template:
+    metadata:
+      name: data-vol-disk-dynamic-pod
+      labels:
+        app: data-vol-disk-dynamic
+    spec:
+      containers:
+      - name: data-vol-disk-dynamic
+        image: kvkakssecurityacr.azurecr.io/aksdatavolumesdemo:v1
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - name: files
+            mountPath: /files
+  volumeClaimTemplates:
+  - metadata:
+      name: az-managed-premium-disk-vc
+    spec:
+      storageClassName: managed-premium
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 2Gi
+  selector:
+    matchLabels:
+      app: data-vol-disk-dynamic
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-vol-disk-dynamic-svc
+spec:
+  selector:
+    app: data-vol-disk-dynamic
+  ports:
+    - port: 80
+  type: LoadBalancer
+  
+  
