@@ -1,11 +1,11 @@
 ﻿apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: az-managed-premium-disk
+  name: az-managed-premium-pvc
 spec:
+  storageClassName: managed-premium
   accessModes:
   - ReadWriteOnce
-  storageClassName: managed-premium
   resources:
     requests:
       storage: 2Gi
@@ -15,14 +15,17 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: data-vol-disk-dynamic-deployment
+  name: data-vol-disk-dynamic-deploy
   labels:
     app: data-vol-disk-dynamic
 spec:
-  replicas: 1
+  replicas: 3
+  selector:
+    matchLabels:
+      app: data-vol-disk-dynamic
   template:
     metadata:
-      name: data-vol-disk-dynamic
+      name: data-vol-disk-dynamic-pod
       labels:
         app: data-vol-disk-dynamic
     spec:
@@ -36,18 +39,15 @@ spec:
       volumes:
       - name: files
         persistentVolumeClaim:
-          claimName: az-managed-premium-disk
-      restartPolicy: Always
-  selector:
-    matchLabels:
-      app: data-vol-disk-dynamic
+          claimName: az-managed-premium-pvc
+      restartPolicy: Always 
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: data-vol-disk-dynamic-service
+  name: data-vol-disk-dynamic-svc
 spec:
   selector:
     app: data-vol-disk-dynamic

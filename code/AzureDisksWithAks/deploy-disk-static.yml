@@ -1,14 +1,17 @@
 ﻿apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: data-vol-disk-static-deployment
+  name: data-vol-disk-static-deploy
   labels:
     app: data-vol-disk-static
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: data-vol-disk-static
   template:
     metadata:
-      name: data-vol-disk-static
+      name: data-vol-disk-pod
       labels:
         app: data-vol-disk-static
     spec:
@@ -25,17 +28,14 @@ spec:
           kind: Managed
           diskName: kvkakssecuritydisk01
           diskURI: /subscriptions/3470523d-174d-4bf0-8434-dfb3a093607a/resourceGroups/MC_aks-security-rg_kvkakssecurityaks_southeastasia/providers/Microsoft.Compute/disks/kvkakssecuritydisk01
-      restartPolicy: Always
-  selector:
-    matchLabels:
-      app: data-vol-disk-static
+      restartPolicy: Always 
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: data-vol-disk-static-service
+  name: data-vol-disk-static-svc
 spec:
   selector:
     app: data-vol-disk-static

@@ -1,14 +1,17 @@
 ﻿apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: data-vol-files-static-deployment
+  name: data-vol-files-static-deploy
   labels:
     app: data-vol-files-static
 spec:
   replicas: 3
+  selector:
+    matchLabels:
+      app: data-vol-files-static
   template:
     metadata:
-      name: data-vol-files-static
+      name: data-vol-files-static-pod
       labels:
         app: data-vol-files-static
     spec:
@@ -25,17 +28,14 @@ spec:
           secretName: aks-share-secret
           shareName: aks-file-share
           readOnly: false
-      restartPolicy: Always
-  selector:
-    matchLabels:
-      app: data-vol-files-static
+      restartPolicy: Always  
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: data-vol-files-static-service
+  name: data-vol-files-static-svc
 spec:
   selector:
     app: data-vol-files-static
