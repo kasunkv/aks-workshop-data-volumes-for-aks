@@ -7,8 +7,21 @@ We need to tag the downloaded/built docker image and push the newly tagged image
 # Tag the docker image
 docker tag "aks-data-volumes-demo" "<your-acr-name>.azurecr.io/aks-data-volumes-demo"
 
+# Login to Azure CLI
+az login --use-device-code
+
+# Login to ACR
+az acr login --name "<registry-name>"
+
 # Push the image to ACR
 docker push "<your-acr-name>.azurecr.io/aks-data-volumes-demo"
+```
+
+## Login to AKS and Download Credentials for kubectl
+
+```powershell
+# Merge AKS cluster config with your local kube config
+az aks get-credentials --name "<aks-name>" --resource-group "aks-security-rg" --admin
 ```
 
 # Create Persistant Volume using Statically Provisioned Azure Disk
