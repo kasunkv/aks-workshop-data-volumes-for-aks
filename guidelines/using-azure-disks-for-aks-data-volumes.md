@@ -30,7 +30,7 @@ $diskId = az disk create --resource-group $nodeRG --name "<disk-name>" --size-gb
 spec:
 containers:
 - name: data-vol-disk-static
-  image: <your-acr-name>.azurecr.io/aksdatavolumesdemo:v1
+  image: <your-acr-name>.azurecr.io/aks-data-volumes-demo
   imagePullPolicy: IfNotPresent
   volumeMounts:
     - name: files
@@ -81,7 +81,7 @@ spec:
 spec:
   containers:
   - name: data-vol-disk-dynamic
-    image: <your-acr-name>.azurecr.io/aksdatavolumesdemo:v1
+    image: <your-acr-name>.azurecr.io/aks-data-volumes-demo
     imagePullPolicy: IfNotPresent
     volumeMounts:
     - name: files
