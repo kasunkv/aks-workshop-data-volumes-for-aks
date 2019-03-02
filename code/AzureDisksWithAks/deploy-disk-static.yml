@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: data-vol-disk-static
-        image: kvkakssecurityacr.azurecr.io/aksdatavolumesdemo:v1
+        image: kvkakssecurityacr.azurecr.io/aks-data-volumes-demo
         imagePullPolicy: IfNotPresent
         volumeMounts:
           - name: files
@@ -27,7 +27,7 @@ spec:
         azureDisk:
           kind: Managed
           diskName: kvkakssecuritydisk01
-          diskURI: /subscriptions/3470523d-174d-4bf0-8434-dfb3a093607a/resourceGroups/MC_aks-security-rg_kvkakssecurityaks_southeastasia/providers/Microsoft.Compute/disks/kvkakssecuritydisk01
+          diskURI: <your-disk-uri-here>
       restartPolicy: Always 
 
 ---

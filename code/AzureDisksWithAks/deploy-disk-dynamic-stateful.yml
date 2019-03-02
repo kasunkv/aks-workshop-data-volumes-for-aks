@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: data-vol-disk-dynamic
-        image: kvkakssecurityacr.azurecr.io/aksdatavolumesdemo:v1
+        image: kvkakssecurityacr.azurecr.io/aks-data-volumes-demo
         imagePullPolicy: IfNotPresent
         volumeMounts:
           - name: files

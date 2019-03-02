@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: data-vol-files-static
-        image: kvkakssecurityacr.azurecr.io/aksdatavolumesdemo:v1
+        image: kvkakssecurityacr.azurecr.io/aks-data-volumes-demo
         imagePullPolicy: IfNotPresent
         volumeMounts:
           - name: files
