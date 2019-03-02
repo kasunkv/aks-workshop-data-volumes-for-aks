@@ -22,7 +22,7 @@ spec:
             mountPath: /files
   volumeClaimTemplates:
   - metadata:
-      name: az-managed-premium-disk-vc
+      name: files
     spec:
       storageClassName: managed-premium
       accessModes:
