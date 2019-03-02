@@ -25,7 +25,7 @@ az aks get-credentials --name "<aks-name>" --resource-group "aks-security-rg" --
 ```
 
 
-# Create Persistant Volume using Statically Provisioned Azure File Share
+# Create Persistent Volume using Statically Provisioned Azure File Share
 In this example we will be creating a volume using Azure Files and share it across multiple pods.
 
 ## 1. Create the Azure Storage Account

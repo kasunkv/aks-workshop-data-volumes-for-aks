@@ -90,3 +90,19 @@ After that you can tag the image for the ACR and push it to Azure
 
 # Using Azure Cloud Shell
 If anything goes wrong with your local development environment when you try to use Azure CLI or kubectl commands, you can use the Azure Cloud Shell to execute the same commands and follow along.
+
+
+# References
+
+
+### [Kubernetes Volumes](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/)
+
+### [Kubernetes Persistent Volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
+
+### [Kubernetes StorageClasses](https://kubernetes.io/docs/concepts/storage/storage-classes/)
+
+### [Kubernetes ReplicaSet](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/)
+
+### [Kubernetes StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#limitations)
+
+### [Kubernetes Storage Concepts](https://docs.microsoft.com/en-us/azure/aks/concepts-storage)

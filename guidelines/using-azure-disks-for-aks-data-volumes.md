@@ -24,10 +24,10 @@ docker push "<your-acr-name>.azurecr.io/aks-data-volumes-demo"
 az aks get-credentials --name "<aks-name>" --resource-group "aks-security-rg" --admin
 ```
 
-# Create Persistant Volume using Statically Provisioned Azure Disk
+# Create Persistent Volume using Statically Provisioned Azure Disk
 
 ## 1. Get a Reference to the Node Resource Group of the AKS
-When we create the AKS cluster it will automatically create a different resource group to put all the cluster related resouces (e.g. Networking resources, Virtual Machines, Availability Sets etc.). The AKS service principle has Contributor access to this Resource Group. Therefore we can put our Azure Disk in this Resource Group to automatically give AKS access to the disk.
+When we create the AKS cluster it will automatically create a different resource group to put all the cluster related resources (e.g. Networking resources, Virtual Machines, Availability Sets etc.). The AKS service principle has Contributor access to this Resource Group. Therefore we can put our Azure Disk in this Resource Group to automatically give AKS access to the disk.
 
 ```powershell
 $nodeRG = az aks show --name "<aks-name>" --resource-group "aks-security-rg" --query "nodeResourceGroup" --output tsv
@@ -61,8 +61,8 @@ volumes:
 kubectl create --filename .\deploy-disk-static.yml
 ```
 
-# Create Persistant Volume using Dynamically Provisioned Azure Disk
-To dynamically generate a persistant voulme using Azure Disks we need to use a Kubernetes StorageClass. AKS includes two pre-created StorageClasses which are configured to use Azure Disks
+# Create Persistent Volume using Dynamically Provisioned Azure Disk
+To dynamically generate a persistent volume using Azure Disks we need to use a Kubernetes StorageClass. AKS includes two pre-created StorageClasses which are configured to use Azure Disks
 
 * _**default**_:  Standard storage created using HDDs
 * _**managed-premium**_: Premium storage created using Premium SSDs.
@@ -72,8 +72,8 @@ To dynamically generate a persistant voulme using Azure Disks we need to use a K
 kubectl get sc
 ```
 
-## 1. Create a PersistantVolumeClaim using Pre-Created Storage Class
-We can include the following PVC definition in the deployment YAML file to create the PresistentVolumeClaim.
+## 1. Create a PersistentVolumeClaim using Pre-Created Storage Class
+We can include the following PVC definition in the deployment YAML file to create the PersistentVolumeClaim.
 
 ```yaml
 apiVersion: v1
